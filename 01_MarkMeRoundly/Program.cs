@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace _01_MarkMeRoundly
 {
@@ -8,8 +11,19 @@ namespace _01_MarkMeRoundly
         {
 
 
-            string input = "23, 65, 76, 78, 23, 43";
-            
+
+            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string fileNameW = "output.txt";
+            string fileNameR = "input.txt";
+
+            var writer = new FileHandling(docPath);
+
+
+
+            string input = writer.ReadFromDisk(fileNameR);
+
+
+
             int[] arr = Array.ConvertAll(input.Split(","), s => int.Parse(s.Trim()));
 
             int[] outArr = new int[arr.Length];
@@ -30,12 +44,17 @@ namespace _01_MarkMeRoundly
 
             }
 
+            StringBuilder sb = new StringBuilder();
 
-
-            for (int i = 0; i < outArr.Length; i++)
+            foreach (var item in outArr)
             {
-                Console.WriteLine(outArr[i]);
+                sb.Append(item.ToString());
+                sb.Append(", ");
+
             }
+
+
+            writer.WriteToDisk(fileNameW, sb.ToString());
 
 
         }
