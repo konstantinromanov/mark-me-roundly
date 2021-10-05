@@ -19,8 +19,7 @@ namespace _01_MarkMeRoundly
         public string ReadFromDisk(string file)
         {
             string readStream = string.Empty;
-
-            string docPath = Arg;
+            
             try
             {
                 using (var sr = new StreamReader(Path.Combine(Arg, file)))
