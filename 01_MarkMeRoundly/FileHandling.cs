@@ -9,10 +9,10 @@ namespace _01_MarkMeRoundly
 {
     public class FileHandling
     {
-        public string Arg { get; }
-        public FileHandling(string arg)
+        private string _directory { get; }
+        public FileHandling(string directory)
         {
-            Arg = arg;
+            _directory = directory;
         }
 
         
@@ -22,14 +22,13 @@ namespace _01_MarkMeRoundly
             
             try
             {
-                using (var sr = new StreamReader(Path.Combine(Arg, file)))
+                using (var sr = new StreamReader(Path.Combine(_directory, file)))
                 {
                     readStream = sr.ReadToEnd();
                 }
             }
             catch (IOException e)
             {
-
                 Console.WriteLine("The file could not be read");
                 Console.WriteLine(e.Message);
             }
@@ -39,7 +38,7 @@ namespace _01_MarkMeRoundly
 
         public void WriteToDisk(string file, string input)
         {
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(Arg, file)))
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(_directory, file)))
             {
                 outputFile.WriteLine(input);
             }
