@@ -13,14 +13,13 @@ namespace _01_MarkMeRoundly
             string fileNameWrite = "output.txt";
             string fileNameRead = "input.txt";
             int inputLength = 0;
-            bool inputLengthError = true;
 
             string inputErrorLength
                 = $"{fileNameRead} file, has {inputLength} grades in it. Allowed number of grades should be from 1 to 60 included";
 
-            int inputValue = 0;
+            string inputErrorValue = $"{fileNameRead} file, has grade that is out of allowed range. Grades should be from 0 to 100 included";
 
-            string inputErrorValue = $"{fileNameRead} file, has grade {inputValue} in it. Grade should be from 0 to 100 included";
+            string error = inputErrorLength;
 
             var writer = new FileHandling(docPath);
 
@@ -36,15 +35,17 @@ namespace _01_MarkMeRoundly
                 {
                     if (Array.TrueForAll(arr, value => { return value <= 100 && value >= 0; }))
                     {
+                        error = null;
                         writer.WriteToDisk(fileNameWrite, GradesProcessing.RoundGrades(arr));
                     }
-
-                    inputLengthError = false;
+                    else
+                    {
+                        error = inputErrorValue;
+                    }
                 }
-
             }
 
-            Console.WriteLine(inputLengthError ? inputErrorLength : inputErrorValue);
+            Console.WriteLine(error != null ? error : "Job done!");
         }
     }
 }
